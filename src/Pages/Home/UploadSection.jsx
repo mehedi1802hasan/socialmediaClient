@@ -1,74 +1,124 @@
-import React, { useContext} from 'react';
-import Swal from 'sweetalert2'
+import React, { useContext } from 'react';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../Authentication/Provider';
-
+import { FaFolderPlus } from 'react-icons/fa';
+import { Fade } from 'react-awesome-reveal';
+import { TypeAnimation } from 'react-type-animation';
 const UploadSection = () => {
-    const {user} =useContext(AuthContext);
-    const handleSubmit=(e)=>{
+    const { user } = useContext(AuthContext);
+
+    
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const form=e.target;
-        const textarea=form.textarea.value;
-        const imageUrl=form.image.value;
-        const like=form.like.value;
-        console.log(textarea,imageUrl);
+        const form = e.target;
+        const textarea = form.textarea.value;
+        const like = form.like.value;
+        const image = form.image.files[0];
+        const formData = new FormData();
+        formData.append("image", image);
 
+        const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_KEY}`;
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+        .then(res => res.json())
+        .then(imageData => {
+            const imageUrl = imageData.data.display_url; // Define imageUrl inside the .then block
 
+            if (user) {
+                const addMedia = {
+                    textarea,
+                    imageUrl,
+                    like
+                };
+                console.log(addMedia);
+                fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(addMedia),
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        Swal.fire({
+                            title: 'Great!',
+                            text: 'Your media Successfully Posted',
+                            icon: 'success',
+                            confirmButtonText: 'Done'
+                        });
+                    }
+                });
+            } else {
+                window.location.href = '/login';
+            }
+        })
+        .catch(error => {
+            console.log(error.message);
+        });
+    };
 
-    if( user){ 
-          const addMedia={
-        textarea,imageUrl,like
-      }
-      console.log(addMedia)
-      fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media',{
-          method:"POST",
-          headers:{
-              'content-type':'application/json'
-          },
-          body:JSON.stringify(addMedia)
-      })
-      .then(res=>res.json())
-      .then(data=>{
-          console.log(data)
-          if(data.insertedId){
-            Swal.fire({
-              title: 'Great!',
-              text: 'your media Successfully Posted ',
-              icon: 'success',
-              confirmButtonText: 'Done'
-            })
-          }
-      })}
-      else{
-        window.location.href = '/login';
-
-      }
-
-
-
-    }
     return (
-      <div className='md:w-96 mx-auto '>
-          <form onSubmit={handleSubmit} className='my-16 shadow-md shadow-orange-100 px-16 py-7'>
+      <div>
+         {/* <h3 className='text-gray-600 mt-7 font-semibold font-serif text-2xl text-center'>
+         <Fade duration={1400} cascade damping={1e-1}> Express Yourself with Photos and Text</Fade>
+          </h3> */}
 
-
-<div> <h3>Text:</h3>
-    <textarea placeholder="enter the text" name='textarea' className="textarea textarea-bordered textarea-sm w-full max-w-xs" required ></textarea>
+<div className="md:w-96 mx-auto mt-6 px-5">
+  <TypeAnimation
+    sequence={[
+      'Express Yourself with Text📝',
+      1000,
+      'Text with Photos 📷📝',
+      1000,
+      'Express Yourself with Photos📷',
+      () => {
+        console.log('Sequence completed');
+      },
+    ]}
+    wrapper="span"
+    cursor={true}
+    repeat={Infinity}
+    style={{
+      fontFamily: 'serif', // Replace with your desired font family
+      fontSize: '20px',
+      fontWeight: '600', // Set the font weight to "semibold"
+      display: 'inline-block',
+    }}
+  />
 </div>
-<div className=''>
-    <h3 className=''>image link:</h3>
-    <input type="text" name="image" placeholder="enter the image link" className="input input-bordered w-full max-w-xs" required/>
-  <input className='hidden' type="text"name="like" defaultValue='0' />
-{/* <input type="text"  className='border-blue-500 border-2' name="image"  required /> */}
 
-</div>
-{/* <div className='hidden'>
-    <input type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" />
-</div> */}
-<button className='btn btn-outline btn-md my-4' type='submit'>Submit</button>
-</form>
+
+
+
+
+
+
+
+          <div className='md:w-[450px] mx-auto '>
+         
+         <form onSubmit={handleSubmit} className='mt-2 mb-12 shadow-md shadow-orange-100 px-16 py-7'>
+             <div>
+                 <h3 className='mb-1 font-semibold font-serif'>Text:</h3>
+                 <textarea placeholder="enter the text" name='textarea' className="textarea textarea-bordered textarea-sm w-full max-w-xs" required></textarea>
+             </div>
+             <div className=''>
+                 <input className='hidden' type="text" name="like" defaultValue='0' />
+             </div>
+             <div className='mt-1'>
+             <h3 className='mb-1 font-semibold font-serif'>imageFile</h3>
+                 <input name="image" accept='image/*' type="file" className=" file-input file-input-bordered file-input-warning w-full max-w-xs h-12" />
+                {/* <p type='file' name="image" accept='image/*' type="file" > <FaFolderPlus/> <input type="" /></p> */}
+             </div>
+             <button className='btn btn-outline btn-md my-4' type='submit'>Submit</button>
+         </form>
+     </div>
       </div>
-
     );
 };
 
 export default UploadSection;
+//name="image" accept='image/*' type="file" 

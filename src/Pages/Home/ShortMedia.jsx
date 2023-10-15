@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Slide } from 'react-awesome-reveal';
 
 const ShortMedia = () => {
   const [mostLikedImages, setMostLikedImages] = useState([]);
@@ -23,7 +24,7 @@ const ShortMedia = () => {
 
   return (
     <div className='p-10'>
-      <h2 className='text-2xl font-serif  mb-7'>Top 3 Most Liked Media</h2>
+     <Slide> <h2 className='text-2xl font-serif  mb-7'>Top 3 Most Liked Media</h2></Slide>
    
    <div className='grid grid-cols-1 md:grid-cols-3 '>
      {mostLikedImages.map((item) => (

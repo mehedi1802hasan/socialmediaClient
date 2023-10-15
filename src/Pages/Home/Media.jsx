@@ -80,7 +80,7 @@ else{
 
 
   return (
-    <div className='mx-10 mt-5'>
+    <div className='mx-10 mt-5 mb-4'>
       <h3 className='text-center font-serif text-2xl font-semibold my-10'>Total Available Post: {media.length}</h3>
       <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-y-10 '>
         {media.map((post, index) => (
