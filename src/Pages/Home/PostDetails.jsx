@@ -13,14 +13,23 @@ const PostDetails = () => {
     //     .then(res=>res.json())
     //     .then(data=>setComment(data))
     // },[])
-
     useEffect(() => {
-      fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/comment')
-          .then((res) => res.json())
-          .then((data) => setComment(data.filter((cmnt) => cmnt.Post_id === _id)));
+      fetchComments();
   }, [_id]);
+    const fetchComments = () => {
+      console.log('Fetching comments for _id:', _id);
+  
+      fetch(`https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/comment?Post_id=${_id}`)
+          .then((res) => res.json())
+          .then((data) => {
+              console.log('Fetched comments:', data);
+              setComment(data.filter((cmnt) => cmnt.Post_id === _id))          })
+          .catch((error) => {
+              console.log('Error fetching comments:', error);
+          });
+  };
 
-    
+
     const handleComment=(e)=>{
         e.preventDefault();
         // console.log('comment')
@@ -43,7 +52,14 @@ const PostDetails = () => {
       .then((res) => res.json())
       .then((data) => {
           if (data.insertedId) {
-            Swal.fire({
+            e.target.comment.value = '';
+
+            // Clear the comment array
+            setComment([]);
+
+            // Refetch comments
+            fetchComments();
+        Swal.fire({
               title: 'Great!',
               text: 'your media Successfully Posted ',
               icon: 'success',

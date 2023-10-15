@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import Swal from 'sweetalert2'
+import { AuthContext } from '../../Authentication/Provider';
 
 const UploadSection = () => {
+    const {user} =useContext(AuthContext);
     const handleSubmit=(e)=>{
         e.preventDefault();
         const form=e.target;
@@ -11,29 +13,34 @@ const UploadSection = () => {
 
 
 
-        const addMedia={
-            textarea,imageUrl
+    if( user){ 
+          const addMedia={
+        textarea,imageUrl
+      }
+      console.log(addMedia)
+      fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media',{
+          method:"POST",
+          headers:{
+              'content-type':'application/json'
+          },
+          body:JSON.stringify(addMedia)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+          console.log(data)
+          if(data.insertedId){
+            Swal.fire({
+              title: 'Great!',
+              text: 'your media Successfully Posted ',
+              icon: 'success',
+              confirmButtonText: 'Done'
+            })
           }
-          console.log(addMedia)
-          fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media',{
-              method:"POST",
-              headers:{
-                  'content-type':'application/json'
-              },
-              body:JSON.stringify(addMedia)
-          })
-          .then(res=>res.json())
-          .then(data=>{
-              console.log(data)
-              if(data.insertedId){
-                Swal.fire({
-                  title: 'Great!',
-                  text: 'your media Successfully Posted ',
-                  icon: 'success',
-                  confirmButtonText: 'Done'
-                })
-              }
-          })
+      })}
+      else{
+        window.location.href = '/login';
+
+      }
 
 
 

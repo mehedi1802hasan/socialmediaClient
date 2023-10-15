@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { FaRegEdit } from 'react-icons/fa';
 import useMenu from '../../hook/useMenu';
 
-const UpdateModal = ({ item }) => {
+const UpdateModal = ({ item, fetchComments }) => {
   const handleSubmit = (e) => {
     // const [menu,refetch]=useMenu();
     // e.preventDefault();
@@ -28,6 +28,7 @@ const UpdateModal = ({ item }) => {
         console.log(data)
       if(data.modifiedCount>0){
         // refetch();
+        fetchComments();
         Swal.fire({
             title: 'Well-done!!',
             text: 'Updated  successfully ',

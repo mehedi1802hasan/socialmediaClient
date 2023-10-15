@@ -8,12 +8,29 @@ const About = () => {
   const [menu]=useMenu()
     const {user}=useContext(AuthContext);
     const [information,setInformation]=useState([]);
-    useEffect(()=>{
-        fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/users')
-        .then(res=>res.json())
-        .then((data) => setInformation(data.filter((inf) => inf.email === user.email)));
-      
-    },[user.email])
+    // useEffect(()=>{
+    //   fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/users')
+    //   .then(res=>res.json())
+    //   .then((data) => setInformation(data.filter((inf) => inf.email === user.email)));
+    
+    // },[user.email])
+    useEffect(() => {
+      fetchComments();
+  }, [user.email]);
+    const fetchComments = () => {
+    
+      fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/users')
+      .then(res=>res.json())
+      .then((data) => setInformation(data.filter((inf) => inf.email === user.email)))
+
+      .catch((error) => {
+        console.log('Error fetching comments:', error);
+    })
+    
+     
+    }
+
+
     return (
       <div className='mb-7  '>
       
@@ -27,7 +44,7 @@ const About = () => {
         information.map(inf=><>
          <div className='flex justify-center items-center gap-20 mt-4 mb-8'>
        <h3 className=' text-2xl font-serif text-red-700'>My Information</h3>
-                <h3 ><UpdateModal key={inf._id} item={inf}></UpdateModal></h3>
+                <h3 ><UpdateModal key={inf._id} item={inf} fetchComments={fetchComments}></UpdateModal></h3>
                 </div>
 
       <div className='flex justify-center items-center gap-12'>
