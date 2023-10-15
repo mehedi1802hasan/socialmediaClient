@@ -31,6 +31,7 @@ const ShortMedia = () => {
 
 <div className="card card-compact md:w-96 bg-base-100 shadow-xl">
   <figure><img className='w-72 h-52' src={item.imageUrl} alt="Shoes" /></figure>
+  <h3 className='btn btn-sm btn-warning w-16 rounded-full p-2 absolute mt-3 ml-[262px] '>{item.like}</h3>
   <div className="card-body">
    
     <p><span className='text-xl font-semibold mr-2'>Text:</span>{item.textarea.split(' ').slice(0, 20).join(' ')}...</p>

@@ -76,12 +76,12 @@ console.log('error')      });
 
 
     return (
-        <div className='my-10'>
+        <div className='my-10  mx-5 md:mx-1'>
            <div className='mb-8  '>
-           <h3><img  className='w-[500px] h-[500px] mx-auto rounded-3xl' src={loader.imageUrl} alt="" /></h3>
+           <h3><img  className='md:w-[500px] md:h-[500px] mx-auto rounded-3xl' src={loader.imageUrl} alt="" /></h3>
            </div>
-           <h3 className='w-[900px] mx-auto'><span className='font-bold font-serif text-2xl'>Text: </span> {loader.textarea}</h3>
-           <div className='w-[900px] mx-auto mt-12 '>
+           <h3 className='md:w-[900px] mx-auto'><span className='font-bold font-serif text-2xl'>Text: </span> {loader.textarea}</h3>
+           <div className='md:w-[900px] mx-auto mt-12 '>
             <h3 className='font-bold font-serif text-3xl '>Comment :</h3>
             <div>
             <form onSubmit={handleComment} className="form-control">

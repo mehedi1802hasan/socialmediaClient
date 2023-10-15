@@ -78,39 +78,39 @@ const Registration = () => {
                                     <label className="label">
                                         <span className="label-text">Name</span>
                                     </label>
-                                    <input type="text" name='name' placeholder="enter your name" className="input input-bordered w-96" required />
+                                    <input type="text" name='name' placeholder="enter your name" className="input input-bordered md:w-96" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
-                                    <input type="text" name='email' placeholder="email" className="input input-bordered w-96" required />
+                                    <input type="text" name='email' placeholder="email" className="input input-bordered  md:w-96" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="password" name='password' placeholder="password" className="input input-bordered w-96" required />
+                                    <input type="password" name='password' placeholder="password" className="input input-bordered md:w-96" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">PhotoUrl</span>
                                     </label>
-                                    <input type="text" name='imgUrl' placeholder="enter your photoUrl" className="input input-bordered w-96" required />
+                                    <input type="text" name='imgUrl' placeholder="enter your photoUrl" className="input input-bordered md:w-96" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Address</span>
                                     </label>
-                                    <input type="text" name='address' placeholder="address" className="input input-bordered w-96" required />
+                                    <input type="text" name='address' placeholder="address" className="input input-bordered md:w-96" required />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">University</span>
                                     </label>
-                                    <input type="text" name='university' placeholder="university" className="input input-bordered w-96" required />
+                                    <input type="text" name='university' placeholder="university" className="input input-bordered md:w-96" required />
                                 </div>
-                                <div className="form-control mt-6 w-96">
+                                <div className="form-control mt-6 md:w-96">
                                     <button className="btn btn-warning" disabled={loading}>Registration</button>
                                 </div>
                             </form>

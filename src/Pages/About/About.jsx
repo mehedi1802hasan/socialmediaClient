@@ -32,7 +32,7 @@ const About = () => {
 
 
     return (
-      <div className='mb-7  '>
+      <div className='mb-7 mx-5 '>
       
         {/* <h3 className='text-2xl font-serif text-green-700 mt-3 mb-8 flex  btn btn-outline btn-success items-center justify-center gap-2'><span className='text-3xl'><BiEdit/></span> Edit</h3> */}
     
@@ -42,14 +42,14 @@ const About = () => {
       
      {
         information.map(inf=><>
-         <div className='flex justify-center items-center gap-20 mt-4 mb-8'>
+         <div className='flex justify-center items-center gap-5 md:gap-20 mt-4 mb-8'>
        <h3 className=' text-2xl font-serif text-red-700'>My Information</h3>
                 <h3 ><UpdateModal key={inf._id} item={inf} fetchComments={fetchComments}></UpdateModal></h3>
                 </div>
 
       <div className='flex justify-center items-center gap-12'>
       <div>
-       <img className='h-52 w-64 rounded-2xl' src={inf.image} alt="image" />
+       <img className='md:h-52 lg:w-64 md:w-64 rounded-2xl' src={inf.image} alt="image" />
        </div>
       <div>
       <h3><span className='font-bold font-serif text-xl'>Name:</span> {inf.name}</h3>

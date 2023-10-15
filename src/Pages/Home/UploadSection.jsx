@@ -9,13 +9,14 @@ const UploadSection = () => {
         const form=e.target;
         const textarea=form.textarea.value;
         const imageUrl=form.image.value;
+        const like=form.like.value;
         console.log(textarea,imageUrl);
 
 
 
     if( user){ 
           const addMedia={
-        textarea,imageUrl
+        textarea,imageUrl,like
       }
       console.log(addMedia)
       fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media',{
@@ -46,7 +47,7 @@ const UploadSection = () => {
 
     }
     return (
-      <div className='w-96 mx-auto '>
+      <div className='md:w-96 mx-auto '>
           <form onSubmit={handleSubmit} className='my-16 shadow-md shadow-orange-100 px-16 py-7'>
 
 
@@ -56,7 +57,7 @@ const UploadSection = () => {
 <div className=''>
     <h3 className=''>image link:</h3>
     <input type="text" name="image" placeholder="enter the image link" className="input input-bordered w-full max-w-xs" required/>
-
+  <input className='hidden' type="text"name="like" defaultValue='0' />
 {/* <input type="text"  className='border-blue-500 border-2' name="image"  required /> */}
 
 </div>
