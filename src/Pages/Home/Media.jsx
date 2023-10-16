@@ -8,20 +8,27 @@ const Media = () => {
   const {user}=useContext(AuthContext)
   const [media, setMedia] = useState([]);
   // const [buttonDisabled, setButtonDisabled] = useState([]);
-
+ 
   useEffect(() => {
-    // Load the disabled button states from localStorage on component mount
-    // const storedButtonDisabled = JSON.parse(localStorage.getItem('buttonDisabled')) || [];
-    // setButtonDisabled(storedButtonDisabled);
-    fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media')
-    .then((res) => res.json())
-    .then((data) => setMedia(data));
-   
+    // Fetch media data from the API link
+    fetchComments()
   }, []);
   const fetchComments=()=>{
+
+
+
+
     fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media')
-    .then((res) => res.json())
-    .then((data) => setMedia(data));
+      .then(response => response.json())
+      .then(data => {
+        // Sort the data by the "time" field in descending order
+        data.sort((a, b) => new Date(b.time) - new Date(a.time));
+        // Update the state with the fetched and sorted media data
+        setMedia(data);
+      })
+      .catch(error => {
+        console.error('Error fetching media data:', error);
+      });
   }
   //////
 const handleLike=(post)=>{
@@ -78,7 +85,6 @@ else{
 // };
 
 
-
   return (
     <div className='mx-10 mt-5 mb-4'>
       <h3 className='text-center font-serif text-2xl font-semibold my-10'>Total Available Post: {media.length}</h3>
@@ -86,7 +92,7 @@ else{
         {media.map((post, index) => (
           <div className="card w-72 bg-base-100 shadow-xl " key={index}>
             <figure>
-              <img className='h-44 w-64' src={post.imageUrl} alt="image" />
+              <img className='h-44 w-64 hover:scale-105 duration-700' src={post.imageUrl} alt="image" />
             </figure>
             <div className='flex justify-between items-center mt-4 my-3 mx-5 72'>
               <h3 className="w-60">

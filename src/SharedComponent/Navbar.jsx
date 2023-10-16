@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Authentication/Provider';
+import { AiFillCamera } from 'react-icons/ai';
+import { ImPencil2 } from 'react-icons/im';
 
 const Navbar = () => {
   const {user,LogOut}=useContext(AuthContext);
@@ -29,7 +31,11 @@ const Navbar = () => {
         
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl">Uplody </a>
+<div className='flex items-center gap-1'>
+  <span className='text-3xl'> <AiFillCamera/></span>
+  <a className=" normal-case text-xl font-serif font-semibold"><span>Upl</span><span className='text-red-500'>oa</span><span>dy</span> </a>
+<span className='text-xl'><ImPencil2/></span>
+</div>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

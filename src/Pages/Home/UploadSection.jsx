@@ -1,18 +1,22 @@
-import React, { useContext } from 'react';
+// import React, {  } from 'react';
+import React, {useContext, useRef, useState } from 'react';
+import DateTimePicker from 'react-datetime-picker';
+
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Authentication/Provider';
-import { FaFolderPlus } from 'react-icons/fa';
-import { Fade } from 'react-awesome-reveal';
+// import { FaFolderPlus } from 'react-icons/fa';
+// import { Fade } from 'react-awesome-reveal';
 import { TypeAnimation } from 'react-type-animation';
 const UploadSection = () => {
     const { user } = useContext(AuthContext);
-
-    
+    const [dateTime, setDateTime] = useState(new Date());
+    const formRef = useRef(null); 
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
         const textarea = form.textarea.value;
         const like = form.like.value;
+        const time = dateTime.toISOString();
         const image = form.image.files[0];
         const formData = new FormData();
         formData.append("image", image);
@@ -24,13 +28,14 @@ const UploadSection = () => {
         })
         .then(res => res.json())
         .then(imageData => {
-            const imageUrl = imageData.data.display_url; // Define imageUrl inside the .then block
+            const imageUrl = imageData.data.display_url;
 
             if (user) {
                 const addMedia = {
                     textarea,
                     imageUrl,
-                    like
+                    like,
+                    time,
                 };
                 console.log(addMedia);
                 fetch('https://socile-media-server-mm0pmc2ou-mehedi1802hasan.vercel.app/media', {
@@ -59,6 +64,7 @@ const UploadSection = () => {
         .catch(error => {
             console.log(error.message);
         });
+        form.reset();
     };
 
     return (
@@ -105,6 +111,12 @@ const UploadSection = () => {
                  <h3 className='mb-1 font-semibold font-serif'>Text:</h3>
                  <textarea placeholder="enter the text" name='textarea' className="textarea textarea-bordered textarea-sm w-full max-w-xs" required></textarea>
              </div>
+             <div className="mb-4 hidden ">
+          <DateTimePicker
+            onChange={setDateTime}
+            value={dateTime}
+          />
+        </div>
              <div className=''>
                  <input className='hidden' type="text" name="like" defaultValue='0' />
              </div>

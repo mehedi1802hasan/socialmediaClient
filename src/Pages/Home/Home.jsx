@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div>
 <UploadSection></UploadSection>   
-<ShortMedia></ShortMedia>    
+<ShortMedia></ShortMedia>  
 </div>
     );
 };
